@@ -28,35 +28,39 @@ const timer = document.querySelector('.show-time');
 const start = document.querySelector('.start');
 const reset = document.querySelector('.reset');
 let countdown;
-let maxTime = 10;
-
+let maxTime = 1;
+let secs = 59;
 
 // functions
 const startTimer = () => {
 	if(!countdown){
 		countdown = setInterval(time, 1000);
-		console.log("timer started");	
+		console.log("timer started");
 	}
 }
 
 const time = () => {
-	timer.innerHTML = `${maxTime} mins remaining`;
-	console.log(maxTime);
-	maxTime--;
+	timer.innerHTML = `${maxTime} mins, ${secs} secs remaining`;
+	console.log(secs);
+	secs--;
 console.log("log running before if")
-if (maxTime < 0) {
-	clearInterval(countdown);
-	maxTime = 10;
-	alert("timer cleared");
-	countdown = null;
-}
+	if (secs < 0) {
+		secs = 59;
+		maxTime--;
+		if(maxTime < 0) {
+			clearInterval(countdown);
+			alert("timer cleared");
+			countdown = null;
+		}
+	}
 }
 
 const resetTimer = () => {
 	clearInterval(countdown);
 	timer.innerHTML = "0 mins";
 	console.log("timer reset");
-	maxTime = 10;
+	maxTime = 1;
+	secs = 59;
 	countdown = null;
 }
 
